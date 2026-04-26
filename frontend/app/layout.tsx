@@ -3,8 +3,8 @@ import { Noto_Serif } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import Navbar from "@/components/shared/Navbar";
-import { Theme } from "@radix-ui/themes";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Providers from "@/app/provider";
+import { Toaster } from "react-hot-toast";
 
 const notoSerif = Noto_Serif({
   subsets: ["latin"],
@@ -18,22 +18,15 @@ export const metadata: Metadata = {
     "Cambodian seasoning made in USA, bringing authentic Khmer flavors to your table.",
 };
 
-const queryClient = new QueryClient();
-
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: { children: React.ReactNode}) {
   return (
     <html lang="en" className={cn("h-full antialiased", notoSerif.variable)}>
       <body className="min-h-full flex flex-col bg-[#FDF9F3] font-serif">
-        <Theme>
-          <QueryClientProvider client={queryClient}>
-            <div className="font-serif">
-              <Navbar />
-              {children}
-            </div>
-          </QueryClientProvider>
-        </Theme>
+        <Providers>
+          <Toaster position="top-center" />
+          <Navbar />
+          {children}
+        </Providers>
       </body>
     </html>
   );

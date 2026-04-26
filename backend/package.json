@@ -10,8 +10,7 @@
     "@types/pg": "^8.20.0"
   },
   "scripts": {
-    "dev": "tsx index.ts",
-    "node": "bun --watch run index.ts"
+    "dev": "bun run index.ts"
   },
   "peerDependencies": {
     "typescript": "^5"
@@ -25,7 +24,7 @@
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
-    "express": "^5.2.1",
+    "express": "4",
     "google-auth-library": "^10.6.2",
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.3",

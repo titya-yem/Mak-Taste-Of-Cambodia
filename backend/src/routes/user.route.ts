@@ -9,9 +9,9 @@ import {
 
 const router = Router();
 
-router.post("/register", validate(registerSchema), register);
+router.post("/signup", validate(registerSchema), register);
 
-router.post("/login", validate(loginSchema), login);
+router.post("/signin", validate(loginSchema), login);
 
 router.post("/google", validate(googleSchema), googleAuth);
 

@@ -3,9 +3,10 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import helmet from "helmet";
 import morgan from "morgan";
+import dotenv from "dotenv";
+
 import userRoutes from "./src/routes/user.route";
 
-import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
@@ -18,13 +19,23 @@ app.use(helmet());
 app.use(morgan("dev"));
 
 // routes
-app.use("/users", userRoutes);
-
 app.get("/", (req, res) => {
-    res.send("Server is running 🚀");
+  res.status(200).send("Server is running");
 });
 
-const PORT = process.env.PORT || 8000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.use("/user", userRoutes);
+
+// error handlers
+process.on("uncaughtException", (err) => {
+  console.error("Uncaught Exception:", err);
+});
+
+// server
+const PORT = Number(process.env.PORT) || 8000;
+const server = app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});
+
+server.on("error", (err) => {
+  console.error("Server failed to start:", err);
 });

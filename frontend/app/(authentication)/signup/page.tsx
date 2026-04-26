@@ -7,14 +7,29 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import lotusImage from "@/public/authentication/lotus.svg";
 import { useForm } from "react-hook-form";
-import { RegisterInput } from "@/types/SignupTypes";
+import { RegisterInput, registerSchema } from "@/types/SignupTypes";
+import { toast } from "react-hot-toast";
+import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
 
-const onSubmit = (data: RegisterInput) => {
-  console.log(data);
-}
 
 const page = () => {
-  const {register, handleSubmit, formState: {errors, isSubmitting}} = useForm<RegisterInput>();
+  const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<RegisterInput>({
+    resolver: zodResolver(registerSchema),
+    defaultValues: { name: "", email: "", password: "" },
+  });
+
+  const onSubmit = async (data: RegisterInput) => {
+    try {
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/signup`, data);
+      console.log(response.data);
+      toast.success('Account created successfully!');
+      reset();
+    } catch (error) {
+      if (axios.isAxiosError(error)) console.log(error.response?.data);
+      toast.error('Failed to create account!');
+    }
+  };
 
   return (
     <div className="py-15 md:py-20 px-4 bg-[#FDF9F3]">
@@ -43,7 +58,7 @@ const page = () => {
                 <input
                   type="text"
                   id="name"
-                  placeholder="heritage@makbbq.com"
+                  placeholder="Name"
                   className="w-full py-2 md:py-4 px-2 rounded-sm text-[#87736E] bg-[#F7F3ED] focus:outline-[#f4ece2]"
                   {...register("name")}
                 />
