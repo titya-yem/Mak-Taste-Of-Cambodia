@@ -4,8 +4,10 @@
   "type": "module",
   "private": true,
   "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
     "@types/bun": "latest",
-    "@types/express": "^5.0.6"
+    "@types/express": "^5.0.6",
+    "@types/pg": "^8.20.0"
   },
   "scripts": {
     "dev": "tsx index.ts",
@@ -15,12 +17,18 @@
     "typescript": "^5"
   },
   "dependencies": {
+    "@types/cookie-parser": "^1.4.10",
+    "@types/cors": "^2.8.19",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/morgan": "^1.9.10",
     "bcrypt": "^6.0.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "google-auth-library": "^10.6.2",
     "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.3",
     "jwt": "^0.2.0",
     "morgan": "^1.10.1",
     "pg": "^8.20.0",

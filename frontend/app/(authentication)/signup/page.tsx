@@ -1,11 +1,21 @@
+"use client";
+
 import { Container, Flex, Text } from "@radix-ui/themes";
 import Image from "next/image";
 import signupImage from "@/public/Signup Image.png";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import lotusImage from "@/public/authentication/lotus.svg";
+import { useForm } from "react-hook-form";
+import { RegisterInput } from "@/types/SignupTypes";
+
+const onSubmit = (data: RegisterInput) => {
+  console.log(data);
+}
 
 const page = () => {
+  const {register, handleSubmit, formState: {errors, isSubmitting}} = useForm<RegisterInput>();
+
   return (
     <div className="py-15 md:py-20 px-4 bg-[#FDF9F3]">
       <Container>
@@ -22,7 +32,23 @@ const page = () => {
               Sign up for your heritage account or sign in
             </Text>
 
-            <form className="pt-10 space-y-4">
+            <form onSubmit={handleSubmit(onSubmit)} className="pt-10 space-y-4">
+              <Flex direction="column" align="start" justify="start" gapY="2">
+                <label
+                  htmlFor="name"
+                  className="text-sm font-medium uppercase text-[#a79591]"
+                >
+                  Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  placeholder="heritage@makbbq.com"
+                  className="w-full py-2 md:py-4 px-2 rounded-sm text-[#87736E] bg-[#F7F3ED] focus:outline-[#f4ece2]"
+                  {...register("name")}
+                />
+                {errors.name && <Text as="p" className="text-red-500"> {errors.name.message} </Text>}
+              </Flex>
               <Flex direction="column" align="start" justify="start" gapY="2">
                 <label
                   htmlFor="email"
@@ -35,7 +61,9 @@ const page = () => {
                   id="email"
                   placeholder="heritage@makbbq.com"
                   className="w-full py-2 md:py-4 px-2 rounded-sm text-[#87736E] bg-[#F7F3ED] focus:outline-[#f4ece2]"
+                  {...register("email")}
                 />
+                {errors.email && <Text as="p" className="text-red-500"> {errors.email.message} </Text>}
               </Flex>
               <Flex direction="column" align="start" justify="start" gapY="2">
                 <label
@@ -49,12 +77,15 @@ const page = () => {
                   id="password"
                   placeholder="********"
                   className="w-full py-2 md:py-4 px-2 rounded-sm text-[#87736E] bg-[#F7F3ED] focus:outline-[#f4ece2]"
+                  {...register("password")}
                 />
+                {errors.password && <Text as="p" className="text-red-500"> {errors.password.message} </Text>}
               </Flex>
               <Button
                 variant="ghost"
                 type="submit"
                 className="w-full py-5 md:py-6 rounded-sm  cursor-pointer text-white bg-[#702E1C] hover:text-white hover:bg-[#984129]"
+                disabled={isSubmitting}
               >
                 Sign Up
               </Button>

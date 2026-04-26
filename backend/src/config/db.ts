@@ -1,4 +1,4 @@
-import {Pool} from "pg";
+import { Pool } from "pg";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -14,4 +14,4 @@ const pool: Pool = globalThis.pgPool ?? new Pool ({
 
 globalThis.pgPool = pool;
 
-export default pool;
+export default pool

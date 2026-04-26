@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import Navbar from "@/components/shared/Navbar";
 import { Theme } from "@radix-ui/themes";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const notoSerif = Noto_Serif({
   subsets: ["latin"],
@@ -17,6 +18,8 @@ export const metadata: Metadata = {
     "Cambodian seasoning made in USA, bringing authentic Khmer flavors to your table.",
 };
 
+const queryClient = new QueryClient();
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
@@ -24,10 +27,12 @@ export default function RootLayout({
     <html lang="en" className={cn("h-full antialiased", notoSerif.variable)}>
       <body className="min-h-full flex flex-col bg-[#FDF9F3] font-serif">
         <Theme>
-          <div className="font-serif">
-            <Navbar />
-            {children}
-          </div>
+          <QueryClientProvider client={queryClient}>
+            <div className="font-serif">
+              <Navbar />
+              {children}
+            </div>
+          </QueryClientProvider>
         </Theme>
       </body>
     </html>
