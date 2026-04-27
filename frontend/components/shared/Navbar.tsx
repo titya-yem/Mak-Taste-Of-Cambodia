@@ -19,18 +19,21 @@ import { Button } from "../ui/button";
 import NavLinks from "./Navlinks";
 import AuthSection from "./AuthSection";
 import api from "@/lib/axios";
-import useAuth from "@/hooks/useAuth";
 import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { signout } from "@/store/slices/authslice";
 
 const Navbar = () => {
   const pathname = usePathname();
   const router = useRouter();
-  const { isLoggedIn, setIsLoggedIn } = useAuth();
+  const dispatch = useDispatch();
+  const { isLoggedIn } = useSelector((state: RootState) => state.auth);
 
 const hanbleSignout = async () => {
   try {
     await api.post("/user/signout");
-    setIsLoggedIn(false);
+    dispatch(signout());
     
     router.push("/");
     router.refresh();
@@ -39,6 +42,7 @@ const hanbleSignout = async () => {
     console.error("Logout failed");
   }
 };
+
   return (
     <header className="border-b border-gray-200 bg-[#FDF9F3]">
       <Container>

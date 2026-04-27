@@ -12,7 +12,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import authPost from "@/hooks/AuthPost";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import useAuth from "@/hooks/useAuth";
 import { useDispatch } from "react-redux";
 import { setUser } from "@/store/slices/authslice";
 
@@ -23,15 +22,13 @@ const page = () => {
   });
 
   const router = useRouter();
-  const { checkAuth } = useAuth();
   const dispatch = useDispatch();
 
   const onSubmit = async (data: LoginInput) => {
     try {
       const res = await authPost("user/signin", "Welcome Back 😋", data);
       dispatch(setUser(res.data.user));
-      
-      await checkAuth();
+
       router.push("/");
       reset();
     } catch (error) {

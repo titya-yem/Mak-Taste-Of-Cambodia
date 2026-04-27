@@ -32,8 +32,9 @@ export const register = async (req: Request, res: Response) => {
         res.cookie("token", token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: "lax",
+            sameSite: "none",
             maxAge: 7200000,
+            path: "/",
         });
 
         res.status(201).json({ user: safeUser, token });
@@ -65,8 +66,9 @@ export const login = async (req: Request, res: Response) => {
         res.cookie("token", token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: "lax",
+            sameSite: "none",
             maxAge: 7200000,
+            path: "/",
         });
 
         res.status(200).json({ user: safeUser, token });
@@ -106,8 +108,9 @@ export const googleAuth = async (req: Request, res: Response) => {
         res.cookie("token", jwtToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: "lax",
+            sameSite: "none",
             maxAge: 7200000,
+            path: "/",
         });
 
         res.status(200).json({ user: safeUser, token });
@@ -145,7 +148,8 @@ export const signout = async (req: Request, res: Response) => {
         res.clearCookie("token", {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: "lax",
+            sameSite: "none",
+            path: "/",
         });
         
         res.status(200).json({ message: "Signout successful" });

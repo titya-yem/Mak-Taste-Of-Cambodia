@@ -5,15 +5,16 @@ import { useState } from "react";
 import { Theme } from "@radix-ui/themes";
 import { Provider as ReduxProvider } from "react-redux";
 import { store } from "@/store/store";
+import AuthBootstrap from "./AuthBootstrap";
 
-export default function Providers({ children }: { children: React.ReactNode; }) {
+export default function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(() => new QueryClient());
 
   return (
     <ReduxProvider store={store}>
       <Theme>
         <QueryClientProvider client={queryClient}>
-          {children}
+          <AuthBootstrap>{children}</AuthBootstrap>
         </QueryClientProvider>
       </Theme>
     </ReduxProvider>
