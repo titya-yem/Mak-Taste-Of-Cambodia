@@ -37,3 +37,12 @@ export const linkGoogleAccount = async (email: string, google_id: string) => {
 
     return result.rows[0];
 }
+
+export const getUserById = async (userId: number) => {
+    const result = await pool.query(
+        `SELECT * FROM users WHERE id = $1`,
+        [userId]
+    );
+
+    return result.rows[0];
+}

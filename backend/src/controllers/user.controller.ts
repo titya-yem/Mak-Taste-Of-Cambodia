@@ -4,9 +4,11 @@ import jwt from "jsonwebtoken";
 import {
   createUser,
   findUserByEmail,
+  getUserById,
   linkGoogleAccount,
 } from "../models/user.model";
 import { verifyGoogleToken } from "../utils/google";
+import type { AuthRequest } from "../middlewares/auth.middleware";
 
 export const register = async (req: Request, res: Response) => {
     try {
@@ -30,7 +32,7 @@ export const register = async (req: Request, res: Response) => {
         res.cookie("token", token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: "strict",
+            sameSite: "lax",
             maxAge: 7200000,
         });
 
@@ -63,7 +65,7 @@ export const login = async (req: Request, res: Response) => {
         res.cookie("token", token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: "strict",
+            sameSite: "lax",
             maxAge: 7200000,
         });
 
@@ -104,7 +106,7 @@ export const googleAuth = async (req: Request, res: Response) => {
         res.cookie("token", jwtToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: "strict",
+            sameSite: "lax",
             maxAge: 7200000,
         });
 
@@ -113,5 +115,42 @@ export const googleAuth = async (req: Request, res: Response) => {
     } catch (error) {
         console.error("Google auth error:", error);
         res.status(500).json({ message: "Google auth failed" });
+    }
+}
+
+export const getMe = async (req: AuthRequest, res: Response) => {
+    try {
+        const userId = req.user?.userId;
+
+        if (!userId)
+            return res.status(401).json({ message: "Unauthorized" });
+
+        const user = await getUserById(userId);
+
+        if (!user)
+            return res.status(404).json({ message: "User not found" });
+
+        const { password: _, ...safeUser } = user;
+
+        res.status(200).json({ user: safeUser });
+        
+    } catch (error) {
+        console.error("Get me error:", error);
+        res.status(500).json({ message: "Get me failed" });
+    }
+}
+
+export const signout = async (req: Request, res: Response) => {
+    try {
+        res.clearCookie("token", {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "lax",
+        });
+        
+        res.status(200).json({ message: "Signout successful" });
+    } catch (error) {
+        console.error("Signout error:", error);
+        res.status(500).json({ message: "Signout failed" });
     }
 }

@@ -7,10 +7,11 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import lotusImage from "@/public/authentication/lotus.svg";
 import { useForm } from "react-hook-form";
-import { RegisterInput, registerSchema } from "@/types/SignupTypes";
-import { toast } from "react-hot-toast";
+import { RegisterInput, registerSchema } from "@/types/AuthTypes";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
+import authPost from "@/hooks/AuthPost";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 
 const page = () => {
@@ -19,15 +20,15 @@ const page = () => {
     defaultValues: { name: "", email: "", password: "" },
   });
 
+  const router = useRouter();
+
   const onSubmit = async (data: RegisterInput) => {
     try {
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/signup`, data);
-      console.log(response.data);
-      toast.success('Account created successfully!');
+      await authPost('user/signup', 'Welcome to Mak Taste of Cambodia 😋', data);
+      router.push('/');
       reset();
     } catch (error) {
-      if (axios.isAxiosError(error)) console.log(error.response?.data);
-      toast.error('Failed to create account!');
+      toast.error('Something went wrong 😖');
     }
   };
 

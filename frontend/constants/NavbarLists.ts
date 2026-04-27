@@ -20,9 +20,5 @@ export const navbarLists: NavbarLists[] = [
     {
         title: "Ambassadors",
         url: "/ambassadors"
-    },
-    {
-        title: "Sign Up",
-        url: "/signup"
     }
 ]
