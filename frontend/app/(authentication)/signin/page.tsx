@@ -13,6 +13,8 @@ import authPost from "@/hooks/AuthPost";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import useAuth from "@/hooks/useAuth";
+import { useDispatch } from "react-redux";
+import { setUser } from "@/store/slices/authslice";
 
 const page = () => {
   const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<LoginInput>({
@@ -22,16 +24,18 @@ const page = () => {
 
   const router = useRouter();
   const { checkAuth } = useAuth();
+  const dispatch = useDispatch();
 
   const onSubmit = async (data: LoginInput) => {
     try {
-      await authPost("user/signin", "Welcome Back 😋", data);
-      window.location.reload();
-      await checkAuth(); // call get me to get data from server
-      router.push('/');
+      const res = await authPost("user/signin", "Welcome Back 😋", data);
+      dispatch(setUser(res.data.user));
+      
+      await checkAuth();
+      router.push("/");
       reset();
     } catch (error) {
-      toast.error('Something went wrong 😖');
+      toast.error("Something went wrong 😖");
     }
   };
 

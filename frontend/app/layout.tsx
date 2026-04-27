@@ -14,11 +14,14 @@ const notoSerif = Noto_Serif({
 
 export const metadata: Metadata = {
   title: "Mak Taste Of Cambodia",
-  description:
-    "Cambodian seasoning made in USA, bringing authentic Khmer flavors to your table.",
+  description: "Cambodian seasoning made in USA, bringing authentic Khmer flavors to your table.",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode}) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en" className={cn("h-full antialiased", notoSerif.variable)}>
       <body className="min-h-full flex flex-col bg-[#FDF9F3] font-serif">
