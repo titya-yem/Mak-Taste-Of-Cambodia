@@ -23,16 +23,22 @@ const OurHeritage = () => {
               The Heart of Cambodia
             </h1>
             <Text as="p" className="text-[#54433F]">
-              Our inspiration begins in the bustling markets and riverside
-              grills of Phnom Penh. It&apos;s a flavor profile defined by the
-              balance of &apos;kroeung&apos;—the aromatic herb paste that forms
-              the soul of Cambodian cuisine.
+              Mak Taste of Cambodia was created by Mayavin Kith, our CEO and
+              visionary entrepreneur. With multiple successful companies under
+              his leadership, Mak Taste of Cambodia is his most beloved project —
+              born from family, heritage, and love. For over 90 years, Mayavin’s
+              family recipe has been passed down through generations, carrying
+              the flavors of Khmer tradition and the spirit of resilience. He
+              founded this brand to show the world that Khmer people are strong,
+              proud, and carry an incredible legacy of flavor.
             </Text>
             <Text as="p" className="py-4 md:py-2 lg:py-6 text-[#54433F]">
-              We source our heat from authentic chilies and our depth from the
-              same techniques used by home cooks for centuries. Every bottle of
-              Mak is a tribute to the resilience and vibrancy of Khmer culinary
-              culture.
+              Mak Taste of Cambodia is more than seasoning — it’s comfort for
+              those living far from home, love for those who miss family meals,
+              and a reminder that food connects us to who we are. “My dream is for
+              every person, near or far, to taste Khmer food and feel the warmth
+              of love and memory with every bite.” – Mayavin Kith Facebook Page :
+              Mak Taste Of Cambodia ម៉ាក់
             </Text>
 
             <div className="flex items-center justify-center md:justify-start gap-4">
