@@ -6,6 +6,7 @@ import morgan from "morgan";
 import dotenv from "dotenv";
 
 import userRoutes from "./src/routes/user.route";
+import productRoutes from "./src/routes/product.route";
 
 dotenv.config();
 
@@ -22,11 +23,8 @@ app.use(helmet());
 app.use(morgan("dev"));
 
 // routes
-app.get("/", (req, res) => {
-  res.status(200).send("Server is running");
-});
-
 app.use("/user", userRoutes);
+app.use("/product", productRoutes);
 
 // error handlers
 process.on("uncaughtException", (err) => {

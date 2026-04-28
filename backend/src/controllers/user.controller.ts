@@ -26,7 +26,7 @@ export const register = async (req: Request, res: Response) => {
         const { password: _, ...safeUser } = user;
 
         // Create JWT token
-        const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET || "secret", { expiresIn: "2h" });
+        const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET || "secret", { expiresIn: "2h" });
 
         // Set JWT token in cookie
         res.cookie("token", token, {
@@ -61,7 +61,7 @@ export const login = async (req: Request, res: Response) => {
 
         const { password: _, ...safeUser } = user;
 
-        const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET || "secret", { expiresIn: "2h" });
+        const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET || "secret", { expiresIn: "2h" });
 
         res.cookie("token", token, {
             httpOnly: true,
@@ -103,7 +103,7 @@ export const googleAuth = async (req: Request, res: Response) => {
 
         const { password: _, ...safeUser } = user;
 
-        const jwtToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET || "secret", { expiresIn: "2h" });
+        const jwtToken = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET || "secret", { expiresIn: "2h" });
 
         res.cookie("token", jwtToken, {
             httpOnly: true,
