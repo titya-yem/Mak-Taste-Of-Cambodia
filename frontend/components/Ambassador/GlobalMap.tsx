@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Container, Flex, Text } from "@radix-ui/themes";
 
-const GloalMap = () => {
+const GlobalMap = () => {
   return (
     <div className="py-10 md:py-15 px-4 bg-[#F7F3ED]">
       <Container>
@@ -44,4 +44,4 @@ const GloalMap = () => {
   );
 };
 
-export default GloalMap;
+export default GlobalMap;
