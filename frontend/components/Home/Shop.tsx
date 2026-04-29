@@ -4,8 +4,12 @@ import Link from "next/link";
 import arrowImage from "@/public/arrow.svg";
 import kruengImage from "@/public/Krueng.png";
 import { Button } from "../ui/button";
+import fetchApi from "@/hooks/useFetch";
+import Products from "../Products";
 
-const Shop = () => {
+const Shop = async () => {
+  
+
   return (
     <section className="py-15 md:py-20 px-4 bg-[#F7F3ED]">
       <Container>
@@ -35,32 +39,7 @@ const Shop = () => {
           </div>
         </Box>
 
-        <div className="flex flex-wrap items-center justify-between">
-          {/* Fetch data */}
-          <div className="w-75 mx-auto md:mx-0">
-            <Image
-              src={kruengImage}
-              alt="krueng Image"
-              className="rounded-md"
-            />
-            <div className="flex items-center justify-between pt-3">
-              <Heading as="h5">Original Krueng</Heading>
-              <Text as="p" className="text-[#702E1C]">
-                $18.00
-              </Text>
-            </div>
-            <Text as="p" className="py-2 text-[#54433F]">
-              The foundation of Cambodian BBQ. A complex blend of lemongrass,
-              turmeric, and galangal.
-            </Text>
-            <Button
-              variant="ghost"
-              className="w-full py-4 font-medium cursor-pointer bg-[#E6E2DC]"
-            >
-              Add to Cart
-            </Button>
-          </div>
-        </div>
+        <Products />
       </Container>
     </section>
   );
