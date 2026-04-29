@@ -11,7 +11,7 @@ const AuthSection = ({ isLoggedIn, hanbleSignout, isMobile = false }: AuthProps)
     return (
       <button
         onClick={hanbleSignout}
-        className={`text-red-500 ${isMobile ? "text-left" : "text-sm"}`}
+        className={`cursor-pointer hover:text-red-500 transition-colors ${isMobile ? "text-left" : "text-sm"}`}
       >
         Sign Out
       </button>

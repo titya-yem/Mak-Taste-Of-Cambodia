@@ -3,39 +3,13 @@
 import { Container, Flex, Text } from "@radix-ui/themes";
 import Image from "next/image";
 import signupImage from "@/public/Signup Image.png";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import lotusImage from "@/public/authentication/lotus.svg";
-import { useForm } from "react-hook-form";
-import { LoginInput, loginSchema } from "@/types/AuthTypes";
-import { zodResolver } from "@hookform/resolvers/zod";
-import authPost from "@/hooks/AuthPost";
-import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
-import { useDispatch } from "react-redux";
-import { setUser } from "@/store/slices/authslice";
+import humanIcon from "@/public/person.svg"
+import SignInForm from "@/components/authentication/SignInForm";
+import GoogleSignInButton from "@/components/authentication/GoogleSignInButton";
 
 const page = () => {
-  const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<LoginInput>({
-    resolver: zodResolver(loginSchema),
-    defaultValues: { email: "", password: "" },
-  });
-
-  const router = useRouter();
-  const dispatch = useDispatch();
-
-  const onSubmit = async (data: LoginInput) => {
-    try {
-      const res = await authPost("user/signin", "Welcome Back 😋", data);
-      dispatch(setUser(res.data.user));
-
-      router.push("/");
-      reset();
-    } catch (error) {
-      toast.error("Something went wrong 😖");
-    }
-  };
-
   return (
     <div className="py-15 md:py-20 px-4 bg-[#FDF9F3]">
       <Container>
@@ -52,48 +26,19 @@ const page = () => {
               Sign in to your heritage account or create a new one.
             </Text>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="pt-10 space-y-4">
-              <Flex direction="column" align="start" justify="start" gapY="2">
-                <label
-                  htmlFor="email"
-                  className="text-sm font-medium uppercase text-[#a79591]"
-                >
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  placeholder="heritage@makbbq.com"
-                  className="w-full py-2 md:py-4 px-2 rounded-sm text-[#87736E] bg-[#F7F3ED] focus:outline-[#f4ece2]"
-                  {...register("email")}
-                />
-                {errors.email && <Text as="p" className="text-red-500"> {errors.email.message} </Text>}
-              </Flex>
-              <Flex direction="column" align="start" justify="start" gapY="2">
-                <label
-                  htmlFor="password"
-                  className="text-sm font-medium uppercase text-[#a79591]"
-                >
-                  Password
-                </label>
-                <input
-                  type="password"
-                  id="password"
-                  placeholder="********"
-                  className="w-full py-2 md:py-4 px-2 rounded-sm text-[#87736E] bg-[#F7F3ED] focus:outline-[#f4ece2]"
-                  {...register("password")}
-                />
-                {errors.password && <Text as="p" className="text-red-500"> {errors.password.message} </Text>}
-              </Flex>
-              <Button
-                variant="ghost"
-                type="submit"
-                className="w-full py-5 md:py-6 rounded-sm  cursor-pointer text-white bg-[#702E1C] hover:text-white hover:bg-[#984129]"
-                disabled={isSubmitting}
-              >
-                Sign In
-              </Button>
-            </form>
+            {/* Sign in with google button */}
+            <div className="my-4">
+              <GoogleSignInButton />
+            </div>
+
+            <Flex align="center" justify="between">
+              <div className="w-1/3 h-0.5 bg-[#DAC1BB]"></div>
+              <Text as="p" className="w-1/4 text-sm uppercase text-[#DAC1BB]">or use email</Text>
+              <div className="w-1/3 h-0.5 bg-[#DAC1BB]"></div>
+            </Flex>
+
+            {/* Sign in form */}
+            <SignInForm />
 
             <div className="flex items-center justify-center gap-2 pt-4 *:text-sm">
               <Text as="p" className="text-[#54433F]">
