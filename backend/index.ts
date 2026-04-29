@@ -7,6 +7,7 @@ import dotenv from "dotenv";
 
 import userRoutes from "./src/routes/user.route";
 import productRoutes from "./src/routes/product.route";
+import ambassadorRoutes from "./src/routes/ambassador.route";
 
 dotenv.config();
 
@@ -25,6 +26,7 @@ app.use(morgan("dev"));
 // routes
 app.use("/user", userRoutes);
 app.use("/product", productRoutes);
+app.use("/ambassador", ambassadorRoutes);
 
 // error handlers
 process.on("uncaughtException", (err) => {
