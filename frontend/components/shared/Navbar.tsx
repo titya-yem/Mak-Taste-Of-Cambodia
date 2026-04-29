@@ -28,7 +28,7 @@ const Navbar = () => {
   const pathname = usePathname();
   const router = useRouter();
   const dispatch = useDispatch();
-  const { isLoggedIn } = useSelector((state: RootState) => state.auth);
+  const { isLoggedIn, loading } = useSelector((state: RootState) => state.auth);
 
 const hanbleSignout = async () => {
   try {
@@ -55,10 +55,14 @@ const hanbleSignout = async () => {
           {/* Desktop */}
           <nav className="hidden md:flex items-center gap-4">
             <NavLinks pathname={pathname} />
-            <AuthSection
-              isLoggedIn={isLoggedIn}
-              hanbleSignout={hanbleSignout}
-            />
+            {loading ? (
+              <div className="w-24 h-6 bg-gray-200 animate-pulse rounded"></div>
+            ) : (
+              <AuthSection
+                isLoggedIn={isLoggedIn}
+                hanbleSignout={hanbleSignout}
+              />
+            )}
           </nav>
 
           {/* Icons */}
@@ -67,7 +71,9 @@ const hanbleSignout = async () => {
               <Image src={cart} alt="cart" width={20} height={20} />
             </Link>
 
-            {isLoggedIn ? (
+            {loading ? (
+              <div className="w-5 h-5 bg-gray-200 animate-pulse rounded-full"></div>
+            ) : isLoggedIn ? (
               <button onClick={hanbleSignout}>
                 <Image src={person} alt="logout" width={20} height={20} />
               </button>
@@ -95,11 +101,15 @@ const hanbleSignout = async () => {
                 <SheetDescription asChild>
                   <nav className="flex flex-col gap-4 pt-10">
                     <NavLinks pathname={pathname} isMobile />
-                    <AuthSection
-                      isLoggedIn={isLoggedIn}
-                      hanbleSignout={hanbleSignout}
-                      isMobile
-                    />
+                    {loading ? (
+                      <div className="w-24 h-6 bg-gray-200 animate-pulse rounded mt-2"></div>
+                    ) : (
+                      <AuthSection
+                        isLoggedIn={isLoggedIn}
+                        hanbleSignout={hanbleSignout}
+                        isMobile
+                      />
+                    )}
                   </nav>
                 </SheetDescription>
               </SheetHeader>

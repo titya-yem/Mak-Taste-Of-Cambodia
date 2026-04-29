@@ -6,8 +6,11 @@ import { adminMiddleware } from "../middlewares/admin.middleware";
 
 const router = Router();
 
-router.post("/create", authMiddleware, adminMiddleware, creatingProduct);
+// public route
 router.get("/", getProducts);
 router.get("/:slug", getBySlug);
+
+// protected route
+router.post("/create", authMiddleware, adminMiddleware, creatingProduct);
 
 export default router;
