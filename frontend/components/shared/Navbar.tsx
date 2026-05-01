@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import person from "@/public/person.svg";
-import cart from "@/public/cart.svg";
+import cartImage from "@/public/cart.svg";
 import { usePathname, useRouter } from "next/navigation";
 import equalSVG from "@/public/equal.svg";
 import {
@@ -28,20 +28,21 @@ const Navbar = () => {
   const pathname = usePathname();
   const router = useRouter();
   const dispatch = useDispatch();
+  const cart = useSelector((state: RootState) => state.cart);
   const { isLoggedIn, loading } = useSelector((state: RootState) => state.auth);
 
-const hanbleSignout = async () => {
-  try {
-    await api.post("/user/signout");
-    dispatch(signout());
-    
-    router.push("/");
-    router.refresh();
-  } catch (error) {
-    toast.error("Logout failed");
-    console.error("Logout failed");
-  }
-};
+  const hanbleSignout = async () => {
+    try {
+      await api.post("/user/signout");
+      dispatch(signout());
+
+      router.push("/");
+      router.refresh();
+    } catch (error) {
+      toast.error("Logout failed");
+      console.error("Logout failed");
+    }
+  };
 
   return (
     <header className="border-b border-gray-200 bg-[#FDF9F3]">
@@ -66,9 +67,17 @@ const hanbleSignout = async () => {
           </nav>
 
           {/* Icons */}
-          <div className="hidden md:flex items-center gap-4">
+          <div className="relative hidden md:flex items-center gap-4">
             <Link href="/cart">
-              <Image src={cart} alt="cart" width={20} height={20} />
+              <Image src={cartImage} alt="cart" width={20} height={20} />
+
+              {cart.totalQuantity === 0 ? (
+                ""
+              ) : (
+                <div className="bottom-2 left-2 absolute px-1 rounded-full text-[#FDF9F3] bg-[#702E1C]">
+                  {cart.totalQuantity}
+                </div>
+              )}
             </Link>
 
             {loading ? (

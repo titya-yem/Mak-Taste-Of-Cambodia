@@ -4,15 +4,10 @@ import { Container, Text } from "@radix-ui/themes";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import Image from "next/image";
-import {
-  removeFromCart,
-  addToCart,
-} from "@/store/slices/cartslice";
+import { removeFromCart, addToCart } from "@/store/slices/cartslice";
 
 const Page = () => {
-  const { items, totalPrice } = useSelector(
-    (state: RootState) => state.cart
-  );
+  const { items, totalPrice } = useSelector((state: RootState) => state.cart);
 
   const dispatch = useDispatch();
 
@@ -32,10 +27,7 @@ const Page = () => {
             )}
 
             {items.map((item) => (
-              <div
-                key={item.id}
-                className="flex gap-6 items-start"
-              >
+              <div key={item.id} className="flex gap-6 items-start">
                 {/* Image */}
                 <Image
                   src={item.image}
@@ -48,9 +40,7 @@ const Page = () => {
                 {/* Info */}
                 <div className="flex-1">
                   <div className="flex justify-between">
-                    <h3 className="text-lg font-semibold">
-                      {item.name}
-                    </h3>
+                    <h3 className="text-lg font-semibold">{item.name}</h3>
 
                     <span className="text-[#702E1C] font-medium">
                       ${Number(item.price).toFixed(2)}
@@ -66,22 +56,16 @@ const Page = () => {
                     {/* Quantity controls */}
                     <div className="flex items-center border rounded-md overflow-hidden">
                       <button
-                        onClick={() =>
-                          dispatch(removeFromCart(item.id))
-                        }
+                        onClick={() => dispatch(removeFromCart(item.id))}
                         className="px-3 py-1 hover:bg-gray-200"
                       >
                         −
                       </button>
 
-                      <span className="px-4 text-sm">
-                        {item.quantity}
-                      </span>
+                      <span className="px-4 text-sm">{item.quantity}</span>
 
                       <button
-                        onClick={() =>
-                          dispatch(addToCart(item))
-                        }
+                        onClick={() => dispatch(addToCart(item))}
                         className="px-3 py-1 hover:bg-gray-200"
                       >
                         +
@@ -90,9 +74,7 @@ const Page = () => {
 
                     {/* Remove */}
                     <button
-                      onClick={() =>
-                        dispatch(removeFromCart(item.id))
-                      }
+                      onClick={() => dispatch(removeFromCart(item.id))}
                       className="text-xs text-gray-500 uppercase hover:text-black"
                     >
                       Remove
@@ -105,9 +87,7 @@ const Page = () => {
 
           {/* RIGHT: Summary */}
           <div className="w-full lg:w-[320px] bg-white p-6 rounded-lg shadow-sm h-fit">
-            <h3 className="text-lg font-semibold mb-4">
-              Summary
-            </h3>
+            <h3 className="text-lg font-semibold mb-4">Summary</h3>
 
             <div className="flex justify-between text-sm mb-2">
               <span>Subtotal</span>
@@ -123,9 +103,7 @@ const Page = () => {
 
             <div className="flex justify-between font-semibold text-lg mb-6">
               <span>Total</span>
-              <span className="text-[#702E1C]">
-                ${totalPrice.toFixed(2)}
-              </span>
+              <span className="text-[#702E1C]">${totalPrice.toFixed(2)}</span>
             </div>
 
             <button className="w-full bg-[#702E1C] text-white py-3 rounded-md hover:bg-[#7c3825]">
