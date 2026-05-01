@@ -57,7 +57,7 @@ const Page = () => {
                     <div className="flex items-center border rounded-md overflow-hidden">
                       <button
                         onClick={() => dispatch(removeFromCart(item.id))}
-                        className="px-3 py-1 hover:bg-gray-200"
+                        className="px-3 py-1 cursor-pointer hover:bg-gray-200"
                       >
                         −
                       </button>
@@ -66,7 +66,7 @@ const Page = () => {
 
                       <button
                         onClick={() => dispatch(addToCart(item))}
-                        className="px-3 py-1 hover:bg-gray-200"
+                        className="px-3 py-1 cursor-pointer hover:bg-gray-200"
                       >
                         +
                       </button>
@@ -75,7 +75,7 @@ const Page = () => {
                     {/* Remove */}
                     <button
                       onClick={() => dispatch(removeFromCart(item.id))}
-                      className="text-xs text-gray-500 uppercase hover:text-black"
+                      className="text-xs text-gray-500 uppercase cursor-pointer hover:text-black"
                     >
                       Remove
                     </button>
@@ -85,7 +85,7 @@ const Page = () => {
             ))}
           </div>
 
-          {/* RIGHT: Summary */}
+          {/* Summary */}
           <div className="w-full lg:w-[320px] bg-white p-6 rounded-lg shadow-sm h-fit">
             <h3 className="text-lg font-semibold mb-4">Summary</h3>
 
@@ -106,7 +106,7 @@ const Page = () => {
               <span className="text-[#702E1C]">${totalPrice.toFixed(2)}</span>
             </div>
 
-            <button className="w-full bg-[#702E1C] text-white py-3 rounded-md hover:bg-[#7c3825]">
+            <button className="w-full py-3 rounded-md  cursor-pointer bg-[#702E1C] text-white hover:bg-[#7c3825]">
               Proceed to Checkout
             </button>
           </div>
