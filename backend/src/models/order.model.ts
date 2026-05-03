@@ -33,8 +33,8 @@ export const createOrderItems = async (orderId: number, items: any[]) => {
 export const getOrdersByUser = async (userId: number) => {
     const result = await db.query (
         `SELECT o.*, oi.product_id, oi.quantity, oi.price
-         FROM order AS o
-         JOIN order_items AS oi ON o.id = oi.order_id
+         FROM order o
+         JOIN order_items oi ON o.id = oi.order_id
          WHERE o.user_id = $1
          ORDER BY o.created_at DESC`,
          [userId]
