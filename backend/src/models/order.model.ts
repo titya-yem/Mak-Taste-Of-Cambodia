@@ -1,44 +1,65 @@
-import db from "../config/db"
+import db from "../config/db";
 
 export const createOrder = async (userId: number, totalAmount: number) => {
-    const result = await db.query (
-        `INSERT INTO orders (user_id, total_amount)
-         VALUES ($1, $2)
+    const result = await db.query(
+        `INSERT INTO orders (user_id, total_amount, payment_status)
+         VALUES ($1, $2, 'pending')
          RETURNING *`,
-         [userId, totalAmount]
+        [userId, totalAmount]
     );
 
     return result.rows[0];
-}
+};
 
-export const createOrderItems = async (orderId: number, items: any[]) => {
-    const query = (
-        `INSERT INTO order_items (order_id, product_id, quantity, price)
-         VALUES ${items
-        .map((_, i) =>`($1, $${i * 3 + 2}, $${i * 3 + 3}, $${i * 3 + 4})`
-        ).join(",")}`);
+export const createOrderItems = async (
+    orderId: number,
+    items: { productId: number; quantity: number; price: number }[]) => {
+    const client = await db.connect();
 
-        const values = [
-            orderId,
-            ...items.flatMap((item) => [
-                item.productId,
-                item.quantity,
-                item.price
-            ]),
-        ];
+    try {
+        await client.query("BEGIN");
 
-        await db.query(query, values);
-}
+        for (const item of items) {
+            await client.query(
+                `INSERT INTO order_items (order_id, product_id, quantity, price)
+                 VALUES ($1, $2, $3, $4)`,
+                [orderId, item.productId, item.quantity, item.price]
+            );
+        }
+
+        await client.query("COMMIT");
+    } catch (error) {
+        await client.query("ROLLBACK");
+        throw error;
+    } finally {
+        client.release();
+    }
+};
 
 export const getOrdersByUser = async (userId: number) => {
-    const result = await db.query (
-        `SELECT o.*, oi.product_id, oi.quantity, oi.price
-         FROM order o
-         JOIN order_items oi ON o.id = oi.order_id
-         WHERE o.user_id = $1
-         ORDER BY o.created_at DESC`,
-         [userId]
+    const result = await db.query(
+        `
+        SELECT 
+            o.id AS order_id,
+            o.user_id,
+            o.total_amount,
+            o.payment_status,
+            o.created_at,
+            json_agg(
+                json_build_object(
+                    'product_id', oi.product_id,
+                    'quantity', oi.quantity,
+                    'price', oi.price
+                )
+            ) AS items
+        FROM orders o
+        JOIN order_items oi ON o.id = oi.order_id
+        WHERE o.user_id = $1
+        GROUP BY o.id
+        ORDER BY o.created_at DESC
+        `,
+        [userId]
     );
 
     return result.rows;
-}
+};

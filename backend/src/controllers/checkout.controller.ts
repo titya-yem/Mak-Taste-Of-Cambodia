@@ -6,16 +6,15 @@ import { checkoutSchema } from "../validations/order.validation";
 export const checkout = async (req: Request, res: Response) => {
   try {
     const parsed = checkoutSchema.safeParse(req.body);
-    if (!parsed.success) 
+    if (!parsed.success)
       return res.status(400).json(parsed.error.issues);
-    
+
     const { userId, items } = parsed.data;
 
-    // 🔥 get real product data
     const productIds = items.map(i => i.productId);
 
     const result = await db.query(
-      `SELECT id, name, price FROM products WHERE id = ANY($1)`,
+      `SELECT id, name, price, image FROM products WHERE id = ANY($1)`,
       [productIds]
     );
 
@@ -24,11 +23,14 @@ export const checkout = async (req: Request, res: Response) => {
     const line_items = items.map(item => {
       const product = products.find(p => p.id === item.productId);
 
+      if (!product) throw new Error("Product not found");
+
       return {
         price_data: {
           currency: "usd",
           product_data: {
             name: product.name,
+            images: product.image ? [product.image] : [],
           },
           unit_amount: Math.round(product.price * 100),
         },
@@ -52,7 +54,8 @@ export const checkout = async (req: Request, res: Response) => {
 
     return res.json({ url: session.url });
 
-  } catch {
+  } catch (err) {
+    console.error(err);
     return res.status(500).json({ error: "Checkout failed" });
   }
 };

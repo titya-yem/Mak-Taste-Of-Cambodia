@@ -5,9 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import Image from "next/image";
 import { removeFromCart, addToCart } from "@/store/slices/cartslice";
+import { useCheckout } from "@/hooks/useCheckout";
 
 const Page = () => {
   const { items, totalPrice } = useSelector((state: RootState) => state.cart);
+  const { mutate: checkout, isPending} = useCheckout();
 
   const dispatch = useDispatch();
 
@@ -106,8 +108,12 @@ const Page = () => {
               <span className="text-[#702E1C]">${totalPrice.toFixed(2)}</span>
             </div>
 
-            <button className="w-full py-3 rounded-md  cursor-pointer bg-[#702E1C] text-white hover:bg-[#7c3825]">
-              Proceed to Checkout
+            <button
+              onClick={() => checkout()}
+              disabled={isPending}
+              className="w-full py-3 rounded-md  cursor-pointer bg-[#702E1C] text-white hover:bg-[#7c3825]"
+              type="button">
+                {isPending ? "Processing..." : "Proceed to Checkout"}
             </button>
           </div>
         </div>
