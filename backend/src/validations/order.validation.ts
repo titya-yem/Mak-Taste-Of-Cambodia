@@ -16,3 +16,13 @@ export const createOrderSchema = z.object({
     (sum, item) => sum + item.price * item.quantity, 0);
   return total === data.totalAmount;
 }, { message: "Total amount mismatch" });
+
+export const checkoutSchema = z.object({
+    userId: z.number().int().positive(),
+    items: z.array(
+        z.object({
+            productId: z.number().int(),
+            quantity: z.number().int().positive(),
+        })
+    ),
+})
