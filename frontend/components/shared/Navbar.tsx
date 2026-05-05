@@ -87,7 +87,7 @@ const Navbar = () => {
                 <Image src={person} alt="logout" width={20} height={20} />
               </button>
             ) : (
-              <Link href="/signin">
+              <Link href="/dashboard">
                 <Image src={person} alt="person" width={20} height={20} />
               </Link>
             )}
