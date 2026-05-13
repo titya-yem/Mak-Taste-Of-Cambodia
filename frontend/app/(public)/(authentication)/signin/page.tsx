@@ -2,10 +2,9 @@
 
 import { Container, Flex, Text } from "@radix-ui/themes";
 import Image from "next/image";
-import signupImage from "@/public/Signup Image.png";
+import signupImage from "@/public/authentication/Signup Image.png";
 import Link from "next/link";
 import lotusImage from "@/public/authentication/lotus.svg";
-import humanIcon from "@/public/person.svg"
 import SignInForm from "@/components/authentication/SignInForm";
 import GoogleSignInButton from "@/components/authentication/GoogleSignInButton";
 
@@ -33,7 +32,9 @@ const page = () => {
 
             <Flex align="center" justify="between">
               <div className="w-1/3 h-0.5 bg-[#DAC1BB]"></div>
-              <Text as="p" className="w-1/4 text-sm uppercase text-[#DAC1BB]">or use email</Text>
+              <Text as="p" className="w-1/4 text-sm uppercase text-[#DAC1BB]">
+                or use email
+              </Text>
               <div className="w-1/3 h-0.5 bg-[#DAC1BB]"></div>
             </Flex>
 

@@ -12,6 +12,7 @@ import {
 import { Box, Text } from "@radix-ui/themes";
 import { adminDashboardLists } from "@/constants/AdminLists";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 const AdminSidebar = () => {
   const path = usePathname();
@@ -35,13 +36,22 @@ const AdminSidebar = () => {
             <SidebarMenuItem key={list.title}>
               <SidebarMenuButton
                 asChild
-                className={`mx-6 my-1 ${
+                className={`mx-4 my-1 ${
                   path === list.url
-                    ? "px-4 w-fit font-medium bg-[#8E4431] text-white"
+                    ? "w-[68%] font-medium bg-[#8E4431] text-white"
                     : "w-[68%] duration-200 ease-in-out hover:text-gray-200 hover:bg-[#a44f3a]"
                 }`}
               >
-                <Link href={list.url}>{list.title}</Link>
+                <Link href={list.url}>
+                  <Image
+                    src={list.img}
+                    alt={list.title}
+                    width={20}
+                    height={20}
+                    className={`${path === list.url ? "fill-white" : "filgra"}`}
+                  />
+                  <span>{list.title}</span>
+                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
           ))}

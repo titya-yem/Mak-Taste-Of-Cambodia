@@ -2,7 +2,7 @@
 
 import { Container, Flex, Text } from "@radix-ui/themes";
 import Image from "next/image";
-import signupImage from "@/public/Signup Image.png";
+import signupImage from "@/public/authentication/Signup Image.png";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import lotusImage from "@/public/authentication/lotus.svg";
@@ -13,9 +13,8 @@ import authPost from "@/hooks/AuthPost";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
-
-const page = () => {
-  const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<RegisterInput>({
+const Page = () => {
+  const { register, handleSubmit, reset, formState: { errors, isSubmitting }} = useForm<RegisterInput>({
     resolver: zodResolver(registerSchema),
     defaultValues: { name: "", email: "", password: "" },
   });
@@ -24,11 +23,16 @@ const page = () => {
 
   const onSubmit = async (data: RegisterInput) => {
     try {
-      await authPost('user/signup', 'Welcome to Mak Taste of Cambodia 😋', data);
-      router.push('/');
+      await authPost(
+        "user/signup",
+        "Welcome to Mak Taste of Cambodia 😋",
+        data,
+      );
+      router.push("/");
       reset();
     } catch (error) {
-      toast.error('Something went wrong 😖');
+      toast.error("Something went wrong 😖");
+      console.error(error)
     }
   };
 
@@ -63,7 +67,12 @@ const page = () => {
                   className="w-full py-2 md:py-4 px-2 rounded-sm text-[#87736E] bg-[#F7F3ED] focus:outline-[#f4ece2]"
                   {...register("name")}
                 />
-                {errors.name && <Text as="p" className="text-red-500"> {errors.name.message} </Text>}
+                {errors.name && (
+                  <Text as="p" className="text-red-500">
+                    {" "}
+                    {errors.name.message}{" "}
+                  </Text>
+                )}
               </Flex>
               <Flex direction="column" align="start" justify="start" gapY="2">
                 <label
@@ -79,7 +88,12 @@ const page = () => {
                   className="w-full py-2 md:py-4 px-2 rounded-sm text-[#87736E] bg-[#F7F3ED] focus:outline-[#f4ece2]"
                   {...register("email")}
                 />
-                {errors.email && <Text as="p" className="text-red-500"> {errors.email.message} </Text>}
+                {errors.email && (
+                  <Text as="p" className="text-red-500">
+                    {" "}
+                    {errors.email.message}{" "}
+                  </Text>
+                )}
               </Flex>
               <Flex direction="column" align="start" justify="start" gapY="2">
                 <label
@@ -95,7 +109,12 @@ const page = () => {
                   className="w-full py-2 md:py-4 px-2 rounded-sm text-[#87736E] bg-[#F7F3ED] focus:outline-[#f4ece2]"
                   {...register("password")}
                 />
-                {errors.password && <Text as="p" className="text-red-500"> {errors.password.message} </Text>}
+                {errors.password && (
+                  <Text as="p" className="text-red-500">
+                    {" "}
+                    {errors.password.message}{" "}
+                  </Text>
+                )}
               </Flex>
               <Button
                 variant="ghost"
@@ -132,4 +151,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
