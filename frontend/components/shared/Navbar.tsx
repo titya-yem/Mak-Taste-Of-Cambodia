@@ -32,9 +32,7 @@ const Navbar = () => {
   const dispatch = useDispatch();
 
   const cart = useSelector((state: RootState) => state.cart);
-  const { isLoggedIn, loading } = useSelector(
-    (state: RootState) => state.auth
-  );
+  const { isLoggedIn, loading } = useSelector((state: RootState) => state.auth);
 
   const handleSignout = async () => {
     try {
