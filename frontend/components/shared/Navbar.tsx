@@ -41,7 +41,7 @@ const Navbar = () => {
 
       router.push("/");
       router.refresh();
-    } catch (error) {
+    } catch {
       toast.error("Logout failed");
     }
   };

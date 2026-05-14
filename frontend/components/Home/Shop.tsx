@@ -1,15 +1,10 @@
-import { Box, Container, Heading, Text } from "@radix-ui/themes";
+import { Box, Container, Text } from "@radix-ui/themes";
 import Image from "next/image";
 import Link from "next/link";
-import arrowImage from "@/public/arrow.svg";
-import kruengImage from "@/public/Krueng.png";
-import { Button } from "../ui/button";
-import fetchApi from "@/hooks/useFetch";
+import ArrowIcon from "@/public/arrow.svg";
 import Products from "../Products";
 
-const Shop = async () => {
-  
-
+const Shop = () => {
   return (
     <section className="py-15 md:py-20 px-4 bg-[#F7F3ED]">
       <Container>
@@ -31,7 +26,7 @@ const Shop = async () => {
                 View All Products
               </Link>
               <Image
-                src={arrowImage}
+                src={ArrowIcon}
                 alt="Right pointing arrow"
                 className="w-3.5"
               />

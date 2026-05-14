@@ -24,7 +24,7 @@ const AdminSidebar = () => {
           <Link href="/">
             <h3 className="pb-2 text-xl font-bold text-[#702E1C]">Mak</h3>
           </Link>
-          <Text as="p" className="text-xs uppercase text-[#8e3d26]">
+          <Text as="p" className="text-xs uppercase text-[#54433F]">
             Platform Management
           </Text>
         </Box>
@@ -36,10 +36,10 @@ const AdminSidebar = () => {
             <SidebarMenuItem key={list.title}>
               <SidebarMenuButton
                 asChild
-                className={`mx-4 my-1 ${
+                className={`py-6 mx-4 my-1 ${
                   path === list.url
-                    ? "w-[68%] font-medium bg-[#8E4431] text-white"
-                    : "w-[68%] duration-200 ease-in-out hover:text-gray-200 hover:bg-[#a44f3a]"
+                    ? "w-[80%] font-medium bg-[#8E4431] text-[#FFC3B5]"
+                    : "w-[80%] duration-200 ease-in-out text-[#54433F] hover:text-gray-200 hover:bg-[#bb4f34]"
                 }`}
               >
                 <Link href={list.url}>
@@ -48,7 +48,7 @@ const AdminSidebar = () => {
                     alt={list.title}
                     width={20}
                     height={20}
-                    className={`${path === list.url ? "fill-white" : "filgra"}`}
+                    className={`${path === list.url ? "invert brightness-0" : ""}`}
                   />
                   <span>{list.title}</span>
                 </Link>
