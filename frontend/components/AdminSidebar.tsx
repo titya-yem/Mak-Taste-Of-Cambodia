@@ -22,7 +22,7 @@ const AdminSidebar = () => {
       <SidebarHeader>
         <Box className="p-4">
           <Link href="/">
-            <h3 className="pb-2 text-xl font-bold text-[#702E1C]">Mak</h3>
+            <h3 className="pb-2 text-2xl font-bold text-[#702E1C]">Mak</h3>
           </Link>
           <Text as="p" className="text-xs uppercase text-[#54433F]">
             Platform Management

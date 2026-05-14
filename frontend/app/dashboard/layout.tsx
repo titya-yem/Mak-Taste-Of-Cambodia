@@ -1,19 +1,22 @@
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import AdminSidebar from "@/components/AdminSidebar";
 
-const layout = ({ children }: { children: React.ReactNode }) => {
+const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <SidebarProvider>
-      <div className="flex min-h-screen">
-        <AdminSidebar />
+      <div className="flex min-h-screen w-full">
+        <div className="shrink-0">
+          <AdminSidebar />
+        </div>
 
-        <main className="flex-1">
+        <main className="flex-1 min-h-screen bg-[#FDF9F3]">
           <SidebarTrigger />
-          <div className="p-6">{children}</div>
+
+          <div className="px-6 w-full">{children}</div>
         </main>
       </div>
     </SidebarProvider>
   );
 };
 
-export default layout;
+export default Layout;
