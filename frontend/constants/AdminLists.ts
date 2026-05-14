@@ -1,8 +1,8 @@
-import dashboard from "@/public/dashboard/admin/dashboard.svg";
-import orders from "@/public/dashboard/admin/orders.svg";
-import users from "@/public/dashboard/admin/users.svg";
-import database from "@/public/dashboard/admin/database.svg";
-import profile from "@/public/dashboard/admin/profile.svg";
+import dashboard from "@/public/dashboard/admin/SideBart/dashboard.svg";
+import orders from "@/public/dashboard/admin/SideBart/orders.svg";
+import users from "@/public/dashboard/admin/SideBart/users.svg";
+import database from "@/public/dashboard/admin/SideBart/database.svg";
+import profile from "@/public/dashboard/admin/SideBart/profile.svg";
 
 import { StaticImageData } from "next/image";
 

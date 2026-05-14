@@ -18,7 +18,7 @@ const AdminSidebar = () => {
   const path = usePathname();
 
   return (
-    <Sidebar className="bg-[#FFC3B5]">
+    <Sidebar className="**:data-[sidebar=sidebar]:bg-[#f8f2e9]">
       <SidebarHeader>
         <Box className="p-4">
           <Link href="/">
