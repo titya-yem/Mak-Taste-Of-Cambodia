@@ -12,7 +12,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         <main className="flex-1 min-h-screen bg-[#FDF9F3]">
           <SidebarTrigger />
 
-          <div className="px-6 w-full">{children}</div>
+          <div className="px-4 w-full">{children}</div>
         </main>
       </div>
     </SidebarProvider>

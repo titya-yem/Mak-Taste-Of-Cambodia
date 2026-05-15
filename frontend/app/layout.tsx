@@ -3,8 +3,6 @@ import { Noto_Serif } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import Providers from "@/app/provider";
-import { Toaster } from "react-hot-toast";
-import { ReactNode } from "react";
 
 const notoSerif = Noto_Serif({
   subsets: ["latin"],
@@ -17,14 +15,15 @@ export const metadata: Metadata = {
   description: "Cambodian seasoning made in USA",
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
-    <html lang="en" className={cn("h-full antialiased", notoSerif.variable)}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={cn("h-full antialiased", notoSerif.variable)}
+    >
       <body className="min-h-full bg-[#FDF9F3] font-serif">
-        <Providers>
-          <Toaster position="top-center" />
-          {children}
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
