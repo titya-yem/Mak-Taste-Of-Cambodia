@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const ActiveOrders = () => {
   return (
-    <main className="max-w-132 pt-8">
+    <main className="w-full lg:w-2/3 pt-8">
       <Flex justify="between" align="center" className="pb-4">
         <h5 className="text-lg font-bold">Active Order Queue</h5>
         <Link

@@ -4,6 +4,7 @@ import growthImage from "@/public/dashboard/admin/Growth.png";
 import moneyImage from "@/public/dashboard/admin/Money.png";
 import sandClockImage from "@/public/dashboard/admin/sandClock.png";
 import ActiveOrders from "@/components/Dashboard/Admin/ActiveOrders";
+import DataBackUp from "@/components/Dashboard/Admin/DataBackUp";
 
 const Page = () => {
   return (
@@ -64,7 +65,10 @@ const Page = () => {
         </Box>
       </div>
 
-      <ActiveOrders />
+      <div className="flex flex-col lg:flex-row items-stretch gap-10">
+        <ActiveOrders />
+        <DataBackUp />
+      </div>
     </div>
   );
 };
