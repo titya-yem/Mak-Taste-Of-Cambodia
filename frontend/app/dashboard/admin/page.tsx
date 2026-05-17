@@ -10,7 +10,7 @@ const Page = () => {
     <div>
       <div className="flex flex-col lg:flex-row justify-between items-center lg:items-start gap-4 mt-4">
         {/* Revenue Data */}
-        <Box className="w-full py-8 relative rounded-xl bg-[#702E1C] *:text-white overflow-hidden">
+        <Box className="w-full py-8 relative rounded-xl bg-[#702E1C] *:text-white">
           <Box className="pl-6">
             <Text as="p" className="font-light text-sm uppercase pb-2">
               Total Revenue
