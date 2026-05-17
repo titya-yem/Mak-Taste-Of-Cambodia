@@ -5,6 +5,7 @@ import moneyImage from "@/public/dashboard/admin/Money.png";
 import sandClockImage from "@/public/dashboard/admin/sandClock.png";
 import ActiveOrders from "@/components/Dashboard/Admin/ActiveOrders";
 import DataBackUp from "@/components/Dashboard/Admin/DataBackUp";
+import PreFooter from "@/components/Dashboard/Admin/PreFooter";
 
 const Page = () => {
   return (
@@ -69,6 +70,7 @@ const Page = () => {
         <ActiveOrders />
         <DataBackUp />
       </div>
+      <PreFooter />
     </div>
   );
 };

@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 
 const DataBackUp = () => {
   return (
-    <section className="p-8 lg:mt-8 rounded-lg bg-[#EBE8E2]">
+    <aside className="w-92 p-8 lg:mt-8 rounded-lg bg-[#EBE8E2]">
       <Flex justify="between" align="center">
         <h5 className="text-xl font-bold">Database Backup</h5>
         <Image src={cloudImage} alt="positive cloud" />
@@ -72,7 +72,7 @@ const DataBackUp = () => {
           </Text>
         </Flex>
       </Box>
-    </section>
+    </aside>
   );
 };
 
