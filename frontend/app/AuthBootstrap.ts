@@ -13,7 +13,7 @@ export default function AuthBootstrap({ children }: { children: React.ReactNode 
       try {
         const res = await api.get("/user/me");
         dispatch(setUser(res.data));
-      } catch (err) {
+      } catch {
         dispatch(signout());
       }
     };
