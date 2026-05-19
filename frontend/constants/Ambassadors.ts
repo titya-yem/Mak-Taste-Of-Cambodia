@@ -1,8 +1,7 @@
 import profile from "@/public/Ambassador/profile.png"
 import { StaticImageData } from "next/image";
 
-interface ambassadorsLists {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+interface AmbassadorsLists {
   image: string | StaticImageData;
   location: string;
   name: string;
@@ -11,7 +10,7 @@ interface ambassadorsLists {
   recipe: string;
 }
 
-export const ambassadors: ambassadorsLists[] = [
+export const ambassadors: AmbassadorsLists[] = [
   {
     image: profile,
     location: "CAMBODIA",

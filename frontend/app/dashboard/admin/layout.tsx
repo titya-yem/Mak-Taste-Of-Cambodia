@@ -1,5 +1,6 @@
 "use client";
 
+import DashboardFooter from "@/components/Dashboard/DashboardFooter";
 import { adminDashboardLists } from "@/constants/AdminLists";
 import { Box, Text } from "@radix-ui/themes";
 import { usePathname } from "next/navigation";
@@ -23,6 +24,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       </div>
 
       {children}
+      <DashboardFooter />
     </div>
   );
 };
