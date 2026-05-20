@@ -1,3 +1,4 @@
+import { OrderLists } from "@/constants/ActiveOrdersLists";
 import { Badge, Flex, Table, Text } from "@radix-ui/themes";
 import Link from "next/link";
 
@@ -46,17 +47,19 @@ const ActiveOrders = () => {
             </Table.Row>
           </Table.Header>
 
-          <Table.Body>
-            <Table.Row className="bg-[#F7F3ED]">
-              <Table.RowHeaderCell># MAK-8901</Table.RowHeaderCell>
-              <Table.Cell>Sovan J.</Table.Cell>
-              <Table.Cell>Mak Seassoning</Table.Cell>
-              <Table.Cell>$44.97</Table.Cell>
-              <Table.Cell>
-                <Badge color="crimson">Pending</Badge>
-              </Table.Cell>
-            </Table.Row>
-          </Table.Body>
+          {OrderLists.slice(0, 8).map((list) => (
+            <Table.Body key={list.price}>
+              <Table.Row className="bg-[#F7F3ED]">
+                <Table.RowHeaderCell>{list.id}</Table.RowHeaderCell>
+                <Table.Cell>{list.name}</Table.Cell>
+                <Table.Cell>{list.productName}</Table.Cell>
+                <Table.Cell>${list.price}</Table.Cell>
+                <Table.Cell>
+                  <Badge color="crimson">{list.status}</Badge>
+                </Table.Cell>
+              </Table.Row>
+            </Table.Body>
+          ))}
         </Table.Root>
       </div>
     </main>
