@@ -48,7 +48,7 @@ const ActiveOrders = () => {
           </Table.Header>
 
           {OrderLists.slice(0, 8).map((list) => (
-            <Table.Body key={list.price}>
+            <Table.Body key={list.id}>
               <Table.Row className="bg-[#F7F3ED]">
                 <Table.RowHeaderCell>{list.id}</Table.RowHeaderCell>
                 <Table.Cell>{list.name}</Table.Cell>
