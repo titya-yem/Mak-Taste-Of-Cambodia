@@ -43,7 +43,7 @@ const Page = () => {
 
       <OrdersTable />
 
-      <div className="mt-4 flex flex-col md:flex-row items-center justify-between">
+      <div className="mt-8 flex flex-col md:flex-row items-center justify-between">
         <Text as="p" className="text-sm font-semibold uppercase text-[#87736E]">
           Showing 8 of 128 Orders
         </Text>
