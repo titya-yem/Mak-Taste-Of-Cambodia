@@ -1,6 +1,6 @@
 import { Box, Text } from "@radix-ui/themes";
 import Image from "next/image";
-import searchImage from "@/public/dashboard/admin/orders/Search.svg";
+import searchImage from "@/public/dashboard/admin/Search.svg";
 import { AdminOrdersFiltersLists } from "@/constants/AdminOrdersFilters";
 import { Button } from "@/components/ui/button";
 import OrdersTable from "@/components/Dashboard/Admin/orders/OrdersTable";
