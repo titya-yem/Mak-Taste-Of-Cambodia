@@ -1,47 +1,56 @@
 import { Box, Flex, Text } from "@radix-ui/themes";
-import increaseArrow from "@/public/dashboard/admin/users/IncreaseArrow.svg";
-import totalMember from "@/public/dashboard/admin/users/TotalMember.png";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 
 interface UserDataTypes {
-    title: string,
-    amount: number,
-    titleImage: string,
-    titleAlt: string,
-    percentage: number,
-    percentageImage: string,
-    percentageAlt: string,
-    duration: string,
+  title: string;
+  amount: number;
+  titleImage: StaticImageData;
+  titleAlt: string;
+  numeric?: string;
+  percentage?: number;
+  percentageImage?: StaticImageData;
+  percentageAlt?: string;
+  duration: string;
 }
 
-const UsersData: UserDataTypes = () => {
+const UsersData = (data: UserDataTypes) => {
+  const isPositive = data.numeric === "+";
+
   return (
-    <div className="w-85 rounded-lg p-6 shadow-lg bg-white">
+    <div className="w-98 rounded-lg p-6 shadow-lg bg-white">
       <div className="flex items-start justify-between">
         <Box className="pb-4">
-          <Text
-            as="p"
-            className="text-sm pb-1 font-semibold uppercase text-[#786b68]"
-          >
-            Total Member
+          <Text className="text-sm pb-1 font-semibold uppercase text-[#786b68]">
+            {data.title}
           </Text>
-          <h5 className="text-4xl font-bold">12,842</h5>
+          <h5 className="text-4xl font-bold">{data.amount.toLocaleString()}</h5>
         </Box>
-        <Image src={totalMember} alt="Trend arrow" />
+
+        <Image src={data.titleImage} alt={data.titleAlt} />
       </div>
-      <Flex align="center" gapX="3">
-        <Flex align="center" gapX="1">
-          <Text
-            as="p"
-            className="text-xs font-semibold uppercase text-[#059669]"
-          >
-            +12%
-          </Text>
-          <Image src={increaseArrow} alt="Trend arrow" />
-        </Flex>
-        <Text as="p" className="text-xs text-[#786b68]">
-          Since last month
-        </Text>
+
+      <Flex align="center" gap="3">
+        {data.percentage !== undefined && data.numeric && (
+          <Flex align="center" gap="1">
+            <Text
+              className={`text-xs font-semibold ${
+                isPositive ? "text-[#059669]" : "text-[#d81818]"
+              }`}
+            >
+              {data.numeric}
+              {data.percentage}%
+            </Text>
+
+            {data.percentageImage && (
+              <Image
+                src={data.percentageImage}
+                alt={data.percentageAlt || "trend icon"}
+              />
+            )}
+          </Flex>
+        )}
+
+        <Text className="text-xs text-[#786b68]">{data.duration}</Text>
       </Flex>
     </div>
   );
