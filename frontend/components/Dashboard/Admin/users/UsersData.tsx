@@ -29,7 +29,7 @@ const UsersData = (data: UserDataTypes) => {
         <Image src={data.titleImage} alt={data.titleAlt} />
       </div>
 
-      <Flex align="center" gap="3">
+      <Flex align="center" gap="2">
         {data.percentage !== undefined && data.numeric && (
           <Flex align="center" gap="1">
             <Text

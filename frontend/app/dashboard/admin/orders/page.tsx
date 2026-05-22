@@ -17,7 +17,7 @@ const Page = () => {
           <Image
             src={searchImage}
             alt="Search icon"
-            className="absolute left-3 top-6 -translate-y-1/2"
+            className="absolute left-3 top-5 -translate-y-1/2"
             width={16}
             height={16}
           />
