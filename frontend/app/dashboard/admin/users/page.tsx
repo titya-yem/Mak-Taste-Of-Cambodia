@@ -5,6 +5,8 @@ import totalMember from "@/public/dashboard/admin/users/TotalMember.png";
 import HeritageTier from "@/public/dashboard/admin/users/HeritageTier.png";
 import NewRegistration from "@/public/dashboard/admin/users/NewRegister.png";
 import UserTable from "@/components/Dashboard/Admin/users/UserTable";
+import Invitation from "@/components/Dashboard/Admin/users/Invitation";
+import Insights from "@/components/Dashboard/Admin/users/Insights";
 
 const page = () => {
   return (
@@ -42,6 +44,11 @@ const page = () => {
       </div>
 
       <UserTable />
+
+      <div className="flex flex-col md:flex-row justify-between items-center">
+        <Invitation />
+        <Insights />
+      </div>
     </div>
   );
 };
