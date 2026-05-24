@@ -23,16 +23,16 @@ const getInitials = (name: string) => {
 
 const UserTable = () => {
   return (
-    <div className="my-6 w-full bg-white rounded-xl border p-6">
+    <div className="my-6 w-full bg-white rounded-xl border p-4 md:p-6">
       {/* Header */}
-      <div className="flex flex-col md:flex-row justify-between items-center">
-        <h2 className="text-xl my-4 font-semibold">Customer Directory</h2>
+      <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+        <h2 className="text-lg md:text-xl font-semibold">Customer Directory</h2>
 
-        <div className="my-4 relative w-full md:w-75">
+        <div className="relative w-full md:w-72">
           <Image
             src={searchImage}
             alt="Search icon"
-            className="absolute left-3 top-5 -translate-y-1/2"
+            className="absolute left-3 top-1/2 -translate-y-1/2"
             width={16}
             height={16}
           />
@@ -44,8 +44,8 @@ const UserTable = () => {
         </div>
       </div>
 
-      {/* Table Head */}
-      <div className="grid grid-cols-5 text-xs text-gray-500 font-medium border-b pb-3">
+      {/* Table Header */}
+      <div className="hidden md:grid grid-cols-5 text-xs text-gray-500 font-medium border-b pb-3 mt-6">
         <span>MEMBER DETAILS</span>
         <span>EMAIL</span>
         <span>MEMBERSHIP TIER</span>
@@ -56,7 +56,14 @@ const UserTable = () => {
       {/* Rows */}
       <div className="divide-y">
         {users.map((user) => (
-          <div key={user.id} className="grid grid-cols-5 items-center py-4">
+          <div
+            key={user.id}
+            className="
+              py-4
+              flex flex-col gap-3
+              md:grid md:grid-cols-5 md:items-center
+            "
+          >
             {/* Member */}
             <div className="flex items-center gap-3">
               {user.avatar ? (
@@ -82,10 +89,16 @@ const UserTable = () => {
             </div>
 
             {/* Email */}
-            <div className="text-sm text-gray-700">{user.email}</div>
+            <div className="text-sm text-gray-700 md:block">
+              <span className="md:hidden text-xs text-gray-500">Email: </span>
+              {user.email}
+            </div>
 
             {/* Tier */}
             <div>
+              <span className="md:hidden text-xs text-gray-500 mr-2">
+                Tier:
+              </span>
               <span
                 className={cn(
                   "px-3 py-1 rounded-full text-xs font-medium",
@@ -97,19 +110,29 @@ const UserTable = () => {
             </div>
 
             {/* Orders */}
-            <div className="text-center font-medium">{user.orders}</div>
+            <div className="md:text-center font-medium">
+              <span className="md:hidden text-xs text-gray-500 mr-2">
+                Orders:
+              </span>
+              {user.orders}
+            </div>
 
             {/* Date */}
-            <div className="text-sm text-gray-600">{user.joinedAt}</div>
+            <div className="text-sm text-gray-600">
+              <span className="md:hidden text-xs text-gray-500 mr-2">
+                Joined:
+              </span>
+              {user.joinedAt}
+            </div>
           </div>
         ))}
       </div>
 
-      {/* Footer / Pagination */}
-      <div className="flex items-center justify-between mt-6 text-sm text-gray-500">
+      {/* Footer */}
+      <div className="flex flex-col items-center md:flex-row md:justify-between gap-4 mt-6 text-sm text-gray-500 text-center md:text-left">
         <span>Showing 1–10 of 842 users</span>
 
-        <div className="flex items-center gap-2 *:cursor-pointer">
+        <div className="flex flex-wrap justify-center md:justify-start items-center gap-2">
           <Button>Previous</Button>
           <Button>1</Button>
           <Button>2</Button>

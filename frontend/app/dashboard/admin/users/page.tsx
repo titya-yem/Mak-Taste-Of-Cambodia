@@ -11,7 +11,7 @@ import Insights from "@/components/Dashboard/Admin/users/Insights";
 const page = () => {
   return (
     <div>
-      <div className="flex flex-col lg:flex-row justify-between items-center gap-2">
+      <div className="my-4 flex flex-col lg:flex-row justify-between items-center gap-2">
         <UsersData
           title="Total Members"
           amount={12842}
