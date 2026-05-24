@@ -18,7 +18,7 @@ const Invitation = () => {
 
   return (
     <div className="bg-[#F7F3ED] p-4 rounded-lg">
-      <h4 className="font-semibold">Invite New Ambassador</h4>
+      <h4 className="text-xl font-semibold">Invite New Ambassador</h4>
 
       <Text as="p" className="py-4 text-sm text-[#54433F]">
         Grow our heritage by inviting trusted culinary experts to the Mak

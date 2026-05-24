@@ -17,7 +17,7 @@ const UsersData = (data: UserDataTypes) => {
   const isPositive = data.numeric === "+";
 
   return (
-    <div className="w-98 rounded-lg p-6 shadow-lg bg-white">
+    <div className="w-full rounded-lg p-6 shadow-lg bg-white">
       <div className="flex items-start justify-between">
         <Box className="pb-4">
           <Text className="text-sm pb-1 font-semibold uppercase text-[#786b68]">
