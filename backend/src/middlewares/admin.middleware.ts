@@ -1,7 +1,7 @@
 import type { Response, NextFunction } from "express";
 import type { AuthRequest } from "./auth.middleware";
 
-export const adminMiddleware = ( req: AuthRequest, res: Response, next: NextFunction ) => {
+const adminMiddleware = ( req: AuthRequest, res: Response, next: NextFunction ) => {
   if (!req.user)
     return res.status(401).json({ message: "Unauthorized" });
 
@@ -10,3 +10,5 @@ export const adminMiddleware = ( req: AuthRequest, res: Response, next: NextFunc
 
   next();
 };
+
+export default adminMiddleware;

@@ -4,11 +4,13 @@ import jwt from "jsonwebtoken";
 import {
   createUser,
   findUserByEmail,
+  getUsers,
   getUserById,
   linkGoogleAccount,
 } from "../models/user.model";
 import { verifyGoogleToken } from "../utils/google";
 import type { AuthRequest } from "../middlewares/auth.middleware";
+
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -137,6 +139,21 @@ export const getMe = async (req: AuthRequest, res: Response) => {
   } catch (error) {
     console.error("Get me error:", error);
     res.status(500).json({ message: "Get me failed" });
+  }
+};
+
+export const getAllUsers = async (req: AuthRequest, res: Response) => {
+  try {
+    const users = await getUsers();
+
+    if (!users)
+      return res.status(404).json({ message: "There is no user" });
+
+    return res.status(200).json({ users });
+
+  } catch (error) {
+    console.error("Get all users error:", error);
+    res.status(500).json({ message: "Get all user failed" });
   }
 };
 

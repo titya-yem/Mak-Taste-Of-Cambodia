@@ -7,8 +7,14 @@ import NewRegistration from "@/public/dashboard/admin/users/NewRegister.png";
 import UserTable from "@/components/Dashboard/Admin/users/UserTable";
 import Invitation from "@/components/Dashboard/Admin/users/Invitation";
 import Insights from "@/components/Dashboard/Admin/users/Insights";
+import fetchApi from "@/hooks/useFetch";
 
-const page = () => {
+const Page = async () => {
+  const res = await fetchApi("/user/allUsers");
+  const users = res.data;
+
+  console.log(users);
+
   return (
     <div>
       <div className="my-4 flex flex-col lg:flex-row justify-between items-center gap-4 lg:gap-8">
@@ -53,4 +59,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
