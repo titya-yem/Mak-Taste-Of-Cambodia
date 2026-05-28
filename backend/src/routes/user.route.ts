@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { register, login, googleAuth, getMe, signout, getAllUsers } from "../controllers/user.controller";
+import { register, login, googleAuth, getMe, signout, getAllUsers, updateUser } from "../controllers/user.controller";
 import { validate } from "../middlewares/validate.middleware";
 import {
   registerSchema,
@@ -22,5 +22,6 @@ router.post("/google", validate(googleSchema), googleAuth);
 // Authenticated routes
 router.get("/me", authMiddleware, getMe);
 router.get("/allUsers", authMiddleware ,adminMiddleware, getAllUsers);
+router.put("/update", authMiddleware ,adminMiddleware, updateUser);
 
 export default router;

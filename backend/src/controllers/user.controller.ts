@@ -7,9 +7,11 @@ import {
   getUsers,
   getUserById,
   linkGoogleAccount,
+  updateUserById,
 } from "../models/user.model";
 import { verifyGoogleToken } from "../utils/google";
 import type { AuthRequest } from "../middlewares/auth.middleware";
+import { number } from "zod";
 
 
 const isProduction = process.env.NODE_ENV === "production";
@@ -171,5 +173,24 @@ export const signout = async (_req: Request, res: Response) => {
   } catch (error) {
     console.error("Signout error:", error);
     res.status(500).json({ message: "Signout failed" });
+  }
+};
+
+export const updateUser = async (req: AuthRequest, res: Response) => {
+  try {
+    const id = req.user?.userId as number;
+    const { name, email, password } = req.body;
+
+    let hashedPassword = password;
+
+    if (password) 
+      hashedPassword = await bcrypt.hash(password, 10);
+    
+    const update = await updateUserById(id, name, email, hashedPassword);
+
+    res.status(200).json({ message: "update user successful", update });
+  } catch (error: unknown) {
+    console.error("Update user failed:", error);
+    res.status(500).json({ message: "cannot update user" });
   }
 };
