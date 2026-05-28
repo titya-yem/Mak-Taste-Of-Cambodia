@@ -15,6 +15,7 @@ interface UserDataTypes {
 
 const UsersData = (data: UserDataTypes) => {
   const isPositive = data.numeric === "+";
+  const safeAmount = Number.isFinite(data.amount) ? data.amount : 0;
 
   return (
     <div className="w-full rounded-lg p-6 shadow-lg bg-white">
@@ -23,7 +24,7 @@ const UsersData = (data: UserDataTypes) => {
           <Text className="text-sm pb-1 font-semibold uppercase text-[#786b68]">
             {data.title}
           </Text>
-          <h5 className="text-4xl font-bold">{data.amount.toLocaleString()}</h5>
+          <h5 className="text-4xl font-bold">{safeAmount.toLocaleString()}</h5>
         </Box>
 
         <Image src={data.titleImage} alt={data.titleAlt} />

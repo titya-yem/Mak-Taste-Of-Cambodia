@@ -1,5 +1,5 @@
 import api from "@/lib/axios";
-import { AxiosError, AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
 
 const fetchApi = async <T>(url: string): Promise<AxiosResponse<T>> => {
   try {
@@ -8,7 +8,8 @@ const fetchApi = async <T>(url: string): Promise<AxiosResponse<T>> => {
     );
     return res;
   } catch (error) {
-    return (error as AxiosError).response as AxiosResponse<T>;
+    console.error(error);
+    throw error;
   }
 };
 

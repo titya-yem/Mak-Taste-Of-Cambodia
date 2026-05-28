@@ -7,20 +7,14 @@ import NewRegistration from "@/public/dashboard/admin/users/NewRegister.png";
 import UserTable from "@/components/Dashboard/Admin/users/UserTable";
 import Invitation from "@/components/Dashboard/Admin/users/Invitation";
 import Insights from "@/components/Dashboard/Admin/users/Insights";
-import fetchApi from "@/hooks/useFetch";
 
-const Page = async () => {
-  const res = await fetchApi("/user/allUsers");
-  const users = res.data;
-
-  console.log(users);
-
+const Page = () => {
   return (
     <div>
       <div className="my-4 flex flex-col lg:flex-row justify-between items-center gap-4 lg:gap-8">
         <UsersData
           title="Total Members"
-          amount={12842}
+          amount={12482}
           titleImage={totalMember}
           titleAlt="Total Member image"
           numeric="+"
@@ -29,6 +23,7 @@ const Page = async () => {
           percentageAlt="arrow trend"
           duration="Since last month"
         />
+
         <UsersData
           title="Heritage Tier"
           amount={1402}
@@ -40,6 +35,7 @@ const Page = async () => {
           percentageAlt="arrow trend"
           duration="Exclusive community growth"
         />
+
         <UsersData
           title="New Registrations"
           amount={428}

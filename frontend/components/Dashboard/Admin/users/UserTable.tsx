@@ -1,27 +1,65 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
-import { users } from "@/constants/UserTableLists";
-import { Button } from "@radix-ui/themes";
 import Image from "next/image";
 import searchImage from "@/public/dashboard/admin/Search.svg";
+import fetchApi from "@/hooks/useFetch";
+import { UserTypes } from "@/types/UserTypes";
 
-const tierStyles = {
+/**
+ * UI-safe extension (frontend only)
+ * because DB does NOT contain these fields
+ */
+type UserUI = UserTypes & {
+  avatar?: string | null;
+  verified?: boolean;
+  tier?: "HERITAGE" | "PREMIUM" | "COMMUNITY";
+  orders?: number;
+  joinedAt?: string;
+};
+
+const tierStyles: Record<string, string> = {
   HERITAGE: "bg-neutral-200 text-neutral-700",
   PREMIUM: "bg-rose-100 text-rose-600",
   COMMUNITY: "bg-gray-100 text-gray-500",
 };
 
-const getInitials = (name: string) => {
+const getInitials = (name: string = "") => {
   return name
     .split(" ")
-    .map((n) => n[0])
+    .map((n) => n?.[0])
     .join("")
     .slice(0, 2)
     .toUpperCase();
 };
 
 const UserTable = () => {
+  const [users, setUsers] = useState<UserUI[]>([]);
+
+  useEffect(() => {
+    const getUsers = async () => {
+      try {
+        const res = await fetchApi("/user/allUsers");
+
+        const data = res.data as UserUI[] | { users?: UserUI[] };
+
+        if (Array.isArray(data)) {
+          setUsers(data);
+        } else if (Array.isArray(data.users)) {
+          setUsers(data.users);
+        } else {
+          console.error("Unexpected API format:", data);
+          setUsers([]);
+        }
+      } catch (error) {
+        console.error("Failed to fetch users:", error);
+      }
+    };
+
+    getUsers();
+  }, []);
+
   return (
     <div className="my-6 w-full bg-white rounded-xl border p-4 md:p-6">
       {/* Header */}
@@ -38,7 +76,7 @@ const UserTable = () => {
           />
           <input
             type="search"
-            placeholder="Search orders..."
+            placeholder="Search users..."
             className="w-full pl-10 pr-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#702E1C]"
           />
         </div>
@@ -58,11 +96,7 @@ const UserTable = () => {
         {users.map((user) => (
           <div
             key={user.id}
-            className="
-              py-4
-              flex flex-col gap-3
-              md:grid md:grid-cols-5 md:items-center
-            "
+            className="py-4 flex flex-col gap-3 md:grid md:grid-cols-5 md:items-center"
           >
             {/* Member */}
             <div className="flex items-center gap-3">
@@ -89,57 +123,27 @@ const UserTable = () => {
             </div>
 
             {/* Email */}
-            <div className="text-sm text-gray-700 md:block">
-              <span className="md:hidden text-xs text-gray-500">Email: </span>
-              {user.email}
-            </div>
+            <div className="text-sm text-gray-700">{user.email}</div>
 
             {/* Tier */}
             <div>
-              <span className="md:hidden text-xs text-gray-500 mr-2">
-                Tier:
-              </span>
               <span
                 className={cn(
                   "px-3 py-1 rounded-full text-xs font-medium",
-                  tierStyles[user.tier],
+                  tierStyles[user.tier ?? ""] || "bg-gray-100",
                 )}
               >
-                {user.tier}
+                {user.tier || "N/A"}
               </span>
             </div>
 
             {/* Orders */}
-            <div className="md:text-center font-medium">
-              <span className="md:hidden text-xs text-gray-500 mr-2">
-                Orders:
-              </span>
-              {user.orders}
-            </div>
+            <div className="md:text-center font-medium">{user.orders ?? 0}</div>
 
             {/* Date */}
-            <div className="text-sm text-gray-600">
-              <span className="md:hidden text-xs text-gray-500 mr-2">
-                Joined:
-              </span>
-              {user.joinedAt}
-            </div>
+            <div className="text-sm text-gray-600">{user.joinedAt || "-"}</div>
           </div>
         ))}
-      </div>
-
-      {/* Footer */}
-      <div className="flex flex-col items-center md:flex-row md:justify-between gap-4 mt-6 text-sm text-gray-500 text-center md:text-left">
-        <span>Showing 1–10 of 842 users</span>
-
-        <div className="flex flex-wrap justify-center md:justify-start items-center gap-2">
-          <Button>Previous</Button>
-          <Button>1</Button>
-          <Button>2</Button>
-          <Button>3</Button>
-          <span>...</span>
-          <Button>Next</Button>
-        </div>
       </div>
     </div>
   );

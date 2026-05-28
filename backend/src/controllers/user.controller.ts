@@ -149,7 +149,7 @@ export const getAllUsers = async (req: AuthRequest, res: Response) => {
     if (!users)
       return res.status(404).json({ message: "There is no user" });
 
-    return res.status(200).json({ users });
+    return res.status(200).json({   success: true, data: users });
 
   } catch (error) {
     console.error("Get all users error:", error);
