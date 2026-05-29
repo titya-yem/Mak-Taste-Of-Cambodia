@@ -42,12 +42,10 @@ const UserTable = () => {
       try {
         const res = await fetchApi("/user/allUsers");
 
-        const data = res.data as UserUI[] | { users?: UserUI[] };
+        const data = res.data as { success: boolean; data: UserUI[] };
 
-        if (Array.isArray(data)) {
-          setUsers(data);
-        } else if (Array.isArray(data.users)) {
-          setUsers(data.users);
+        if (data?.success && Array.isArray(data.data)) {
+          setUsers(data.data);
         } else {
           console.error("Unexpected API format:", data);
           setUsers([]);
