@@ -1,23 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import searchImage from "@/public/dashboard/admin/Search.svg";
-import fetchApi from "@/hooks/useFetch";
-import { UserTypes } from "@/types/UserTypes";
-
-/**
- * UI-safe extension (frontend only)
- * because DB does NOT contain these fields
- */
-type UserUI = UserTypes & {
-  avatar?: string | null;
-  verified?: boolean;
-  tier?: "HERITAGE" | "PREMIUM" | "COMMUNITY";
-  orders?: number;
-  joinedAt?: string;
-};
+import { UserUI } from "@/types/UserTypes";
 
 const tierStyles: Record<string, string> = {
   HERITAGE: "bg-neutral-200 text-neutral-700",
@@ -34,30 +20,7 @@ const getInitials = (name: string = "") => {
     .toUpperCase();
 };
 
-const UserTable = () => {
-  const [users, setUsers] = useState<UserUI[]>([]);
-
-  useEffect(() => {
-    const getUsers = async () => {
-      try {
-        const res = await fetchApi("/user/allUsers");
-
-        const data = res.data as { success: boolean; data: UserUI[] };
-
-        if (data?.success && Array.isArray(data.data)) {
-          setUsers(data.data);
-        } else {
-          console.error("Unexpected API format:", data);
-          setUsers([]);
-        }
-      } catch (error) {
-        console.error("Failed to fetch users:", error);
-      }
-    };
-
-    getUsers();
-  }, []);
-
+const UserTable = (users: UserUI[]) => {
   return (
     <div className="my-6 w-full bg-white rounded-xl border p-4 md:p-6">
       {/* Header */}
