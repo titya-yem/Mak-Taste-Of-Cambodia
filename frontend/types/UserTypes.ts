@@ -1,3 +1,4 @@
+import { z } from "zod";
 
 export type UserTypes = {
   id: number;
@@ -17,3 +18,13 @@ export type UserUI = UserTypes & {
   orders?: number;
   joinedAt?: string;
 };
+
+export const updateUserSchema = z.object({
+  name: z.string().min(1, "Name is required").optional(),
+  email: z.string().email("Invalid email").optional(),
+
+  password: z
+    .string()
+    .optional()
+    .transform((val) => (val === "" ? undefined : val)),
+});
