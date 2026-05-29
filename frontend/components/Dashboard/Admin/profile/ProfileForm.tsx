@@ -1,33 +1,49 @@
 "use client";
 
-import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { updateUserSchema } from "@/types/UserTypes";
 import { useMutation } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
+import axios from "axios";
+import { z } from "zod";
+import { toast } from "react-hot-toast";
+import { useRef } from "react";
 
-type FormData = {
-  name: string;
-  email: string;
-  password?: string;
-};
+type FormData = z.infer<typeof updateUserSchema>;
 
 const ProfileForm = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
-  } = useForm<FormData>({
-    resolver: zodResolver(updateUserSchema),
-  });
+  } = useForm<FormData>({ resolver: zodResolver(updateUserSchema) });
 
   const mutation = useMutation({
-    mutationFn: updateUserApi,
+    mutationFn: async (data: Partial<FormData>) => {
+      const res = await axios.put(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/update`,
+        data,
+        { withCredentials: true },
+      );
+      return res.data;
+    },
+    onSuccess: () => {
+      toast.success("Profile updated successfully");
+      reset();
+    },
+    onError: () => {
+      toast.error("Update failed");
+    },
   });
 
   const onSubmit = (data: FormData) => {
-    mutation.mutate(data);
+    const filteredData: Partial<FormData> = Object.fromEntries(
+      Object.entries(data).filter(([_, value]) => value && value !== ""),
+    );
+
+    mutation.mutate(filteredData);
   };
 
   return (
@@ -72,7 +88,7 @@ const ProfileForm = () => {
         <div className="flex justify-end">
           <Button
             type="submit"
-            className="bg-[#6b2f1d] text-white"
+            className="p-4 rounded-sm cursor-pointer bg-[#6b2f1d] text-white hover:text-white hover:bg-[#8a4029]"
             disabled={mutation.isPending}
           >
             {mutation.isPending ? "Updating..." : "UPDATE PROFILE"}
