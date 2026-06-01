@@ -1,7 +1,7 @@
 import express from "express";
-import { downloadBackup } from "../controllers/backup.controller.js";
-import { authMiddleware } from "../middlewares/auth.middleware.js";
-import adminMiddleware from "../middlewares/admin.middleware.js";
+import { downloadBackup } from "../controllers/backup.controller";
+import { authMiddleware } from "../middlewares/auth.middleware";
+import adminMiddleware from "../middlewares/admin.middleware";
 
 const router = express.Router();
 
