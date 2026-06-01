@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import searchImage from "@/public/dashboard/admin/Search.svg";
 import { UserUI } from "@/types/UserTypes";
+import { Text } from "@radix-ui/themes";
 
 const tierStyles: Record<string, string> = {
   HERITAGE: "bg-neutral-200 text-neutral-700",
@@ -44,12 +45,12 @@ const UserTable = (users: UserUI[]) => {
       </div>
 
       {/* Table Header */}
-      <div className="hidden md:grid grid-cols-5 text-xs text-gray-500 font-medium border-b pb-3 mt-6">
-        <span>MEMBER DETAILS</span>
+      <div className="hidden md:grid grid-cols-5 text-xs text-center text-gray-500 font-medium border-b pb-3 mt-6">
+        <span className="text-start pl-4">MEMBER DETAILS</span>
         <span>EMAIL</span>
-        <span>MEMBERSHIP TIER</span>
+        <span>SIGNUP TYPES</span>
         <span className="text-center">TOTAL ORDERS</span>
-        <span>JOINED DATE</span>
+        <span>CREATED DATE</span>
       </div>
 
       {/* Rows */}
@@ -57,7 +58,7 @@ const UserTable = (users: UserUI[]) => {
         {users.map((user) => (
           <div
             key={user.id}
-            className="py-4 flex flex-col gap-3 md:grid md:grid-cols-5 md:items-center"
+            className="py-4 flex flex-col gap-3 md:grid md:grid-cols-5 md:items-center text-center"
           >
             {/* Member */}
             <div className="flex items-center gap-3">
@@ -77,16 +78,19 @@ const UserTable = (users: UserUI[]) => {
 
               <div>
                 <p className="font-medium">{user.name}</p>
-                <p className="text-xs text-gray-500">
-                  {user.verified ? "VERIFIED ACCOUNT" : "NEW MEMBER"}
-                </p>
+                <p className="text-xs text-start text-gray-500">{user.role}</p>
               </div>
             </div>
 
             {/* Email */}
-            <div className="text-sm text-gray-700">{user.email}</div>
+            <a
+              href={`mailto:${user.email}`}
+              className="text-sm text-blue-400 hover:text-blue-500"
+            >
+              {user.email}
+            </a>
 
-            {/* Tier */}
+            {/* Signup type */}
             <div>
               <span
                 className={cn(
@@ -94,15 +98,21 @@ const UserTable = (users: UserUI[]) => {
                   tierStyles[user.tier ?? ""] || "bg-gray-100",
                 )}
               >
-                {user.tier || "N/A"}
+                {user.provider}
               </span>
             </div>
 
             {/* Orders */}
-            <div className="md:text-center font-medium">{user.orders ?? 0}</div>
+            <Text as="p" className="md:text-center font-medium">
+              {user.orders ?? 0}
+            </Text>
 
             {/* Date */}
-            <div className="text-sm text-gray-600">{user.joinedAt || "-"}</div>
+            <Text as="p" className="text-sm text-gray-600">
+              {user.created_at
+                ? new Date(user.created_at).toISOString().split("T")[0]
+                : "-"}
+            </Text>
           </div>
         ))}
       </div>

@@ -19,10 +19,7 @@ import fetchApi from "@/hooks/useFetch";
  */
 type UserUI = UserTypes & {
   avatar?: string | null;
-  verified?: boolean;
-  tier?: "HERITAGE" | "PREMIUM" | "COMMUNITY";
   orders?: number;
-  joinedAt?: string;
 };
 
 const Page = () => {
