@@ -48,7 +48,7 @@ export const checkout = async (req: Request, res: Response) => {
 
       metadata: {
         userId: userId.toString(),
-        items: JSON.stringify(items),
+        items: JSON.stringify(items).slice(0, 500), // prevent Stripe truncation
       },
     });
 

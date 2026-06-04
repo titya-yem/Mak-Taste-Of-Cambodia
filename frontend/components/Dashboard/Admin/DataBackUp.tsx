@@ -1,11 +1,26 @@
+"use client";
+
 import Image from "next/image";
 import cloudImage from "@/public/dashboard/admin/cloud.svg";
 import backupImage from "@/public/dashboard/admin/Backup.svg";
 import documentImage from "@/public/dashboard/admin/document.svg";
 import { Box, Flex, Progress, Text } from "@radix-ui/themes";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { backup } from "@/lib/backup";
 
 const DataBackUp = () => {
+  const [loading, setLoading] = useState(false);
+
+  const handleBackup = async () => {
+    setLoading(true);
+    try {
+      await backup();
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <aside className="w-92 p-8 lg:mt-8 rounded-lg bg-[#EBE8E2]">
       <Flex justify="between" align="center">
@@ -35,6 +50,8 @@ const DataBackUp = () => {
 
       <Button
         variant="ghost"
+        onClick={handleBackup}
+        disabled={loading}
         className="text-base w-full mt-6 py-6 cursor-pointer text-white bg-[#702E1C] hover:bg-[#883923] hover:text-white"
       >
         <Image
@@ -44,7 +61,7 @@ const DataBackUp = () => {
           width={30}
           height={30}
         />
-        Run Backup Now
+        Download Backup Now
       </Button>
 
       <Box className="pt-8 text-[#54433F]">
